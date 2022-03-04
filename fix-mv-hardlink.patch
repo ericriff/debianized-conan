@@ -1,0 +1,33 @@
+--- Dh_Lib.pm	2022-03-04 18:25:26.291509964 -0300
++++ Dh_Lib.pm.fix	2022-03-04 18:26:51.248336139 -0300
+@@ -31,7 +31,7 @@
+ 	'DBGSYM_PACKAGE_TYPE' => 'ddeb',
+ };
+ 
+-use Errno qw(ENOENT);
++use Errno qw(ENOENT EXDEV);
+ use Exporter qw(import);
+ use File::Glob qw(bsd_glob GLOB_CSH GLOB_NOMAGIC GLOB_TILDE);
+ our (@EXPORT, %dh);
+@@ -535,12 +535,19 @@
+ 	}
+ 	return 1 if $dh{NO_ACT};
+ 	if (not rename($source, $dest)) {
+-		my $files = escape_shell($source, $dest);
+-		error("mv $files: $!")
++		my $ok = 0;
++		if ($! == EXDEV) {
++			$ok = _doit('mv', $source, $dest);
++		}
++		if (not $ok) {
++			my $files = escape_shell($source, $dest);
++			error("mv $files: $!");
++		}
+ 	}
+ 	return 1;
+ }
+ 
++
+ sub reset_perm_and_owner {
+ 	my ($mode, @paths) = @_;
+ 	my $_mode;
