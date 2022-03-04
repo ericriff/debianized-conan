@@ -26,8 +26,8 @@ $ docker build --tag ubuntu-bionic-dh-virtualenv
 # We need to mount the working directory 2 levels deep since debhelper puts its output in cwd/.. so we need the parent directory of the workdir to be accessible as well.
 $ docker run -it --rm -v $PWD:/py2deb/py2deb ubuntu-bionic-dh-virtualenv:latest
 $ cd /py2deb/py2de
-# This installs a bunch of build-time dependencies. Unfortunatelly I couldn't make it work non interactively so the user must press `y`.
-$ mk-build-deps --install debian/control
+# This installs a bunch of build-time dependencies.
+$ yes | mk-build-deps --install debian/control
 # This creates the deb package. It creates a virtualenv, uses pip to pull conan and all its dependencies and packages it as a deb. The output is located in ..
 $ dpkg-buildpackage -uc -us -b
 # Check output
