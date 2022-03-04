@@ -1,0 +1,16 @@
+[Unit]
+Description=conan Service
+After=network.target
+#Requires=conan-worker.service
+#Requires=conan-cron.service
+
+[Service]
+Type=simple
+User=conan
+Group=daemon
+WorkingDirectory=/var/opt/conan
+EnvironmentFile=/etc/default/conan
+ExecStart=/usr/sbin/conan-launcher
+
+[Install]
+WantedBy=multi-user.target

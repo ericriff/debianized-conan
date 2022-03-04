@@ -1,0 +1,5 @@
+conan (1.45.0-1~~dev1~jessie) jessie; urgency=low
+
+  * Initial release of "debianized-conan"
+
+ -- Eric Riff <ericriff@gmail.com>  Mon, 01 Jan 2017 01:02:03 +0000

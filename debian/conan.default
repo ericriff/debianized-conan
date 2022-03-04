@@ -1,0 +1,5 @@
+# Environment file for systemd units and cron jobs
+CONAN_CONFDIR=/etc/conan
+
+# Global logging level. Use wisely. [DEBUG|INFO|WARNING|ERROR|CRITICAL|FATAL]
+CONAN_LOGLEVEL=INFO
